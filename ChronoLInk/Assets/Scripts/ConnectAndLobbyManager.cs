@@ -49,13 +49,13 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        // 패널 각각 비활성화 로그인 패널이 처음 로그인 UI임
+        // UI 초기 상태 설정
         loginPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         createRoomPanel.SetActive(false);
         roomPanel.SetActive(false);
 
-        // 인풋필드 리스너
+        // InputField 리스너
         nicknameInputField.onValueChanged.AddListener(OnNicknameInputValueChanged);
         roomNameInputField.onValueChanged.AddListener(OnRoomNameInputValueChanged);
 
@@ -68,7 +68,7 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
         selectFutureButton.onClick.AddListener(() => SelectCharacter("Future"));
         startGameButton.onClick.AddListener(StartGame);
 
-        
+        // 버튼 초기 비활성화
         loginButton.interactable = false;
         confirmCreateRoomButton.interactable = false;
     }
@@ -106,7 +106,7 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    
+    // [5단계 핵심] 역할 선택 함수
     private void SelectCharacter(string character)
     {
         PhotonHashtable props = new PhotonHashtable();
@@ -114,7 +114,7 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 
-    
+    // [5단계 핵심] 게임 시작 함수
     private void StartGame()
     {
         // 마스터 클라이언트만 게임을 시작할 수 있음
@@ -124,8 +124,7 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
             if (CheckAllPlayersReady())
             {
                 Debug.Log("모든 플레이어 준비 완료, 게임을 시작합니다!");
-                PhotonNetwork.LoadLevel("GameScene"); // 연결되는 게임씬 이름 설정 
-                                                        // 다만 비동기 로딩으로 바꿀거라 바뀔 수 있음
+                PhotonNetwork.LoadLevel("LoadingScene"); // "GameScene"은 실제 게임 씬의 이름으로 변경해야 함
             }
             else
             {
