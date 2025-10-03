@@ -500,7 +500,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204581552}
-  - component: {fileID: 204581551}
+  - component: {fileID: 204581554}
   - component: {fileID: 204581553}
   m_Layer: 0
   m_Name: GameManager
@@ -509,36 +509,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &204581551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204581550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76eacc9e7c943b343b62608df07468f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loginPanel: {fileID: 699216471}
-  lobbyPanel: {fileID: 1917073831}
-  createRoomPanel: {fileID: 577039006}
-  roomPanel: {fileID: 1506403255}
-  nicknameInputField: {fileID: 513445904}
-  loginButton: {fileID: 2026502445}
-  showCreateRoomButton: {fileID: 1664886575}
-  roomListContent: {fileID: 873758641}
-  roomEntryPrefab: {fileID: 6893797250710828475, guid: b36035e7d1a01624396f6cd5ac4e1537, type: 3}
-  roomNameInputField: {fileID: 139718363}
-  confirmCreateRoomButton: {fileID: 400972468}
-  roomNameText: {fileID: 2094013290}
-  playerListContent: {fileID: 904861243}
-  playerEntryPrefab: {fileID: 1857512249561405956, guid: cedfa890afb0d4d4f88a6045653055bf, type: 3}
-  selectPastButton: {fileID: 953861952}
-  selectFutureButton: {fileID: 460696169}
-  startGameButton: {fileID: 35927626}
-  leaveRoomButton: {fileID: 713990434}
 --- !u!4 &204581552
 Transform:
   m_ObjectHideFlags: 0
@@ -598,6 +568,36 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &204581554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204581550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87719357f3e7a7f4e8ed1a0e43e5fcbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loginPanel: {fileID: 699216471}
+  lobbyPanel: {fileID: 1917073831}
+  createRoomPanel: {fileID: 577039006}
+  roomPanel: {fileID: 1506403255}
+  nicknameInputField: {fileID: 513445904}
+  loginButton: {fileID: 2026502445}
+  showCreateRoomButton: {fileID: 1664886575}
+  roomListContent: {fileID: 873758641}
+  roomEntryPrefab: {fileID: 6893797250710828475, guid: b36035e7d1a01624396f6cd5ac4e1537, type: 3}
+  roomNameInputField: {fileID: 139718363}
+  confirmCreateRoomButton: {fileID: 400972468}
+  roomNameText: {fileID: 2094013290}
+  playerListContent: {fileID: 904861243}
+  playerEntryPrefab: {fileID: 1857512249561405956, guid: cedfa890afb0d4d4f88a6045653055bf, type: 3}
+  selectPastButton: {fileID: 953861952}
+  selectFutureButton: {fileID: 460696169}
+  startGameButton: {fileID: 35927626}
+  leaveRoomButton: {fileID: 713990434}
 --- !u!224 &246723619 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5614633759688220877, guid: e2f4fa63a5242c245ba0f64c176342dc, type: 3}
@@ -3034,6 +3034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876634002}
   - component: {fileID: 1876634001}
+  - component: {fileID: 1876634003}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3118,6 +3119,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1876634003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876634000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1890522872
 GameObject:
   m_ObjectHideFlags: 0
