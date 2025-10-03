@@ -206,8 +206,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330174601}
-  - component: {fileID: 330174600}
   - component: {fileID: 330174602}
+  - component: {fileID: 330174603}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -215,20 +215,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &330174600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330174599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe2bea7ea7ecb0458cc6c96234082ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressbar: {fileID: 644449213}
-  loadingText: {fileID: 1669775961}
 --- !u!4 &330174601
 Transform:
   m_ObjectHideFlags: 0
@@ -266,6 +252,20 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &330174603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330174599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1359c950771187c45a7314e537243f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressbar: {fileID: 644449213}
+  loadingText: {fileID: 1669775961}
 --- !u!1 &529019840
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1167743917}
   - component: {fileID: 1167743916}
+  - component: {fileID: 1167743918}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -786,6 +787,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1167743918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167743915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1669775959
 GameObject:
   m_ObjectHideFlags: 0

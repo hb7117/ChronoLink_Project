@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             string character = (string)characterValue;
             GameObject prefabToSpawn = (character == "Past") ? pastPlayerPrefab : futurePlayerPrefab;
-            Vector3 spawnPosition = (character == "Past") ? new Vector3(-10f, 2f, 0f) : new Vector3(10f, 2f, 0f);
+            Vector3 spawnPosition = (character == "Past") ? new Vector3(10f, 2f, 0f) : new Vector3(-10f, 2f, 0f);
 
             PhotonNetwork.Instantiate(prefabToSpawn.name, spawnPosition, Quaternion.identity);
         }
