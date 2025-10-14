@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -71,6 +83,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2663708379104823618}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4477175103684035863}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
       insertIndex: -1
       addedObject: {fileID: 766138752636902689}
@@ -182,7 +197,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1645854119950798921
 MonoBehaviour:
@@ -208,6 +223,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eeacc84fb5064f4c8d956bee5ac6870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4477175103684035863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781531825137020206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!114 &766138752636902689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +257,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -4477175103684035863}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -252,7 +284,7 @@ MonoBehaviour:
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
-  samplingRate: 24000
+  samplingRate: 48000
   frameDuration: 20000
   bitrate: 30000
   sourceType: 0
@@ -272,7 +304,7 @@ MonoBehaviour:
   stopRecordingWhenPaused: 0
   useOnAudioFilterRead: 0
   useMicrophoneTypeFallback: 1
-  recordWhenJoined: 1
+  recordWhenJoined: 0
 --- !u!114 &2937520218892562561
 MonoBehaviour:
   m_ObjectHideFlags: 0

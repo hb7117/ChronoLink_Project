@@ -42,9 +42,9 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             case "Photon":
                 whereScene = "GameScene";
                 break;
-            case "GameScene":
-                whereScene = "GameScene1";
-                break;
+           //ase "GameScene":
+           //   whereScene = "GameScene1";
+           //   break;
             // --- 여기에 새로운 씬 전환 규칙을 추가하세요 ---
             default:
                 Debug.LogWarning("정의되지 않은 이전 씬입니다. 기본 씬(LobbyScene)으로 이동합니다.");

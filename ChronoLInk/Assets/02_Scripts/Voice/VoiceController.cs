@@ -31,8 +31,11 @@ public class VoiceController : MonoBehaviour
     {
         if (photonView.IsMine && recorder != null)
         {
+
+
             if (Input.GetKeyDown(KeyCode.V))
             {
+                
                 recorder.TransmitEnabled = true;
             }
             
