@@ -1,10 +1,30 @@
 using UnityEngine;
 
-// 이 스크립트는 이제 순수하게 UI만 담당하므로 Photon 관련 코드가 모두 필요 없습니다.
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu Instance { get; private set; }
+
+    [Header("공용 패널")]
     public GameObject pausePanel;
-    public GameObject optionsPanel;
+
+    [Header("캐릭터별 옵션 패널")]
+    public GameObject pastOptionsPanel;
+    public GameObject futureOptionsPanel;
+
+    private bool isPaused = false;
+    private string localPlayerCharacterType;
+
+    void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
+    }
+
+    public void RegisterLocalPlayer(string characterType)
+    {
+        localPlayerCharacterType = characterType;
+        Debug.Log($"로컬 플레이어 등록 완료: {localPlayerCharacterType}");
+    }
 
     void Update()
     {
@@ -16,45 +36,63 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        if (pausePanel.activeSelf)
-        {
-            Resume();
-        }
-        else
-        {
-            pausePanel.SetActive(true);
-            optionsPanel.SetActive(false);
-        }
+        isPaused = !isPaused;
+        if (isPaused) { Pause(); }
+        else { Resume(); }
     }
 
     public void Resume()
     {
+        isPaused = false;
         pausePanel.SetActive(false);
+        pastOptionsPanel.SetActive(false);
+        futureOptionsPanel.SetActive(false);
+
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void Pause()
+    {
+        isPaused = true;
+
+        pausePanel.SetActive(true);
+        pastOptionsPanel.SetActive(false);
+        futureOptionsPanel.SetActive(false);
+
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ShowOptions()
     {
-        optionsPanel.SetActive(true);
         pausePanel.SetActive(false);
+
+        if (localPlayerCharacterType == "Past")
+        {
+            pastOptionsPanel.SetActive(true);
+        }
+        else if (localPlayerCharacterType == "Future")
+        {
+            futureOptionsPanel.SetActive(true);
+        }
     }
 
     public void BackToPauseMenu()
     {
-        optionsPanel.SetActive(false);
+        pastOptionsPanel.SetActive(false);
+        futureOptionsPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
-   
     public void LeaveToLobby()
     {
-        // GameManager의 싱글톤 인스턴스를 통해 방 나가기 함수를 호출합니다.
+        Time.timeScale = 1f;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.LeaveGameAndReturnToLobby();
-        }
-        else
-        {
-            Debug.LogError("GameManager 인스턴스를 찾을 수 없습니다!");
         }
     }
 
@@ -63,4 +101,3 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 }
-

@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         // 기존 플레이어 준비 신호 보내기
         photonView.RPC("SignalPlayerIsReady", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+
+
     }
     #endregion
 
