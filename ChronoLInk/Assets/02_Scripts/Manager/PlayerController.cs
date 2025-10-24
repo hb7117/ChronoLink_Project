@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Cinemachine;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,20 @@ public class PlayerController : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        if (photonView.IsMine)
+        {
+            CinemachineVirtualCamera virtualcamera = FindObjectOfType<CinemachineVirtualCamera>();
+            if (virtualcamera != null)
+            {
+                virtualcamera.Follow = this.transform;
+                virtualcamera.LookAt = this.transform;
+            }
+        }
+       
     }
 
     void Update()
