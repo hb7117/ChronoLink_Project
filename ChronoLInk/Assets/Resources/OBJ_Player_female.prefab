@@ -855,9 +855,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRadius: 5
-  interactKey: 101
-  interactUIObject: {fileID: 0}
-  interactText: {fileID: 0}
 --- !u!1001 &2565441536112172658
 PrefabInstance:
   m_ObjectHideFlags: 0
