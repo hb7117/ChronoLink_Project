@@ -206,8 +206,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330174601}
-  - component: {fileID: 330174602}
   - component: {fileID: 330174603}
+  - component: {fileID: 330174604}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -230,7 +230,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &330174602
+--- !u!114 &330174603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330174599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1359c950771187c45a7314e537243f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressbar: {fileID: 644449213}
+  loadingText: {fileID: 1669775961}
+--- !u!114 &330174604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,20 +266,6 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &330174603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330174599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1359c950771187c45a7314e537243f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressbar: {fileID: 644449213}
-  loadingText: {fileID: 1669775961}
 --- !u!1 &529019840
 GameObject:
   m_ObjectHideFlags: 0

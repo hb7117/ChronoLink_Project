@@ -46,6 +46,8 @@ MonoBehaviour:
   - PlayerReadyRPC
   - SignalPlayerIsReady
   - StartSpawningProcess
+  - RPC_UpdateFutureObjectPosition
+  - RPC_MasterDestroyItemByID
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

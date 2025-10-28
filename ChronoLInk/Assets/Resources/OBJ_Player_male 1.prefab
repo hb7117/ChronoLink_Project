@@ -1121,7 +1121,7 @@ MonoBehaviour:
   pickupRadius: 5
   itemLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   interactKey: 101
 --- !u!1001 &2224556071402131105
 PrefabInstance:
