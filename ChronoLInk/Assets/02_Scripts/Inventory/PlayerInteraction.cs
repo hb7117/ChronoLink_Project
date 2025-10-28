@@ -4,7 +4,7 @@ using System.Linq;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [Header("설정")]
+    
     public float pickupRadius = 2f;
     public LayerMask itemLayer;
     public KeyCode interactKey = KeyCode.E;
@@ -28,6 +28,8 @@ public class PlayerInteraction : MonoBehaviour
             Debug.LogError("PlayerInteraction: Inventory 스크립트를 찾을 수 없습니다!", this.gameObject);
         }
     }
+
+  
 
     void Update()
     {
@@ -76,16 +78,27 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractableItem = closestItem;
     }
 
+
+   
     private void TryPickupItem()
     {
         if (currentInteractableItem == null) return;
 
+        PhotonView itemPhotonView = currentInteractableItem.GetComponent<PhotonView>();
+
+       
         inventory.AddItem(currentInteractableItem.itemData);
 
-        PhotonView itemPhotonView = currentInteractableItem.GetComponent<PhotonView>();
         if (itemPhotonView != null)
         {
-            PhotonNetwork.Destroy(currentInteractableItem.gameObject);
+            if (itemPhotonView.IsMine || PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(currentInteractableItem.gameObject);
+            }
+            else
+            {
+                photonView.RPC("RPC_RequestDestroyItem", RpcTarget.MasterClient, itemPhotonView.ViewID);
+            }
         }
         else
         {
@@ -93,6 +106,18 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         currentInteractableItem = null;
+    }
+
+    [PunRPC]
+    void RPC_RequestDestroyItem(int itemPhotonViewID)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        PhotonView itemPV = PhotonView.Find(itemPhotonViewID);
+        if (itemPV != null)
+        {
+            PhotonNetwork.Destroy(itemPV.gameObject);
+        }
     }
 }
 

@@ -1,17 +1,37 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Photon.Pun;
 
 public class Inventory : MonoBehaviour
 {
-    [Header("UI º≥¡§")]
+    [Header("UI ÏÑ§Ï†ï")]
     public GameObject inventoryPanel;         
     public List<Slot> inventorySlots;        
 
-    [Header("æ∆¿Ã≈€ πˆ∏Æ±‚")]
+    [Header("ÏïÑÏù¥ÌÖú Î≤ÑÎ¶¨Í∏∞")]
     public Transform dropPoint;               
 
-    private List<ItemData> heldItems = new List<ItemData>(); 
+    private List<ItemData> heldItems = new List<ItemData>();
+    private PhotonView photonView;
+
+
+    void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+        Debug.Log($"Inventory Awake: photonView is {(photonView == null ? "NULL" : "Assigned")}. IsMine: {photonView?.IsMine}"); 
+
+        if (inventoryPanel == null)
+        {
+            inventoryPanel = GameObject.FindWithTag("InventoryPanel");
+            if (inventoryPanel == null) ;
+        }
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
+
+       
+        
+        UpdateInventoryUI();
+    }
 
     void Start()
     {
@@ -25,9 +45,12 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (photonView != null && photonView.IsMine)
         {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (inventoryPanel != null) { inventoryPanel.SetActive(!inventoryPanel.activeSelf); }
+            }
         }
     }
 
@@ -36,43 +59,60 @@ public class Inventory : MonoBehaviour
     {
         if (heldItems.Count >= inventorySlots.Count)
         {
-            Debug.Log("¿Œ∫•≈‰∏Æ∞° ≤À √°Ω¿¥œ¥Ÿ.");
+            Debug.Log("Ïù∏Î≤§ÌÜ†Î¶¨Í∞Ä ÍΩâ Ï∞ºÏäµÎãàÎã§.");
             return;
         }
         heldItems.Add(itemData);
         UpdateInventoryUI();
     }
 
-    
+
     public void DropItem(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= heldItems.Count) return;
 
         ItemData itemToDrop = heldItems[slotIndex];
-        Instantiate(itemToDrop.itemPrefab, dropPoint.position, dropPoint.rotation);
+
+        if (itemToDrop.itemPrefab == null)
+        {
+            Debug.LogError(itemToDrop.itemName + " ÌîÑÎ¶¨ÌåπÏù¥ ÎπÑÏñ¥ÏûàÏäµÎãàÎã§!");
+            return;
+        }
+
+        string prefabName = "ItemPrefabs/" + itemToDrop.itemPrefab.name;
+
+        PhotonNetwork.Instantiate(prefabName, dropPoint.position, dropPoint.rotation);
+
         heldItems.RemoveAt(slotIndex);
         UpdateInventoryUI();
     }
 
-    
     private void UpdateInventoryUI()
     {
+        Debug.Log($"UpdateInventoryUI called. heldItems.Count: {heldItems.Count}, inventorySlots is {(inventorySlots == null ? "NULL" : $"Assigned ({inventorySlots.Count} slots)")}");
+
+        if (inventorySlots == null || inventorySlots.Count == 0) return;
+
         for (int i = 0; i < inventorySlots.Count; i++)
         {
-            if (i < heldItems.Count)
+            Debug.Log($"Updating Slot {i}...");
+            if (inventorySlots[i] == null)
             {
-                // ±∏¥⁄¥Ÿ∏Æ πÊΩƒ
-                //inventorySlots[i].sprite = heldItems[i].itemIcon;
-                //inventorySlots[i].enabled = true;
+                Debug.LogError($"InventorySlot [{i}] is NULL!");
+                continue;
+            }
 
-                // ªı∑”∞‘ 
+            if (i < heldItems.Count && heldItems[i] != null)
+            {
+                Debug.Log($"  Calling DrawSlot for item: {heldItems[i].itemName}");
                 inventorySlots[i].DrawSlot(heldItems[i]);
-
             }
             else
             {
+                Debug.Log($"  Calling ClearSlot for slot {i}");
                 inventorySlots[i].ClearSlot();
             }
         }
+        Debug.Log("Inventory UI Update finished."); 
     }
 }

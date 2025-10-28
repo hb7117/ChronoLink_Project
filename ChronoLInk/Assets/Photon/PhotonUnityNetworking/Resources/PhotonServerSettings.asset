@@ -48,6 +48,7 @@ MonoBehaviour:
   - StartSpawningProcess
   - RPC_UpdateFutureObjectPosition
   - RPC_MasterDestroyItemByID
+  - RPC_RequestDestroyItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
