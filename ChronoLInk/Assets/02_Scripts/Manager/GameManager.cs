@@ -10,6 +10,8 @@ using Photon.Pun;
 using Photon.Voice.Unity; // 보이스 관리를 위해 추가
 using System.Collections.Generic;
 
+
+
 public class GameManager : MonoBehaviourPunCallbacks
 {
 
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     // 방장만 사용하는 변수들
     private List<int> readyPlayers = new List<int>();
     private bool isSpawningStarted = false;
+
+    private Dictionary<string, TimeObject> futureTimeObjects = new Dictionary<string, TimeObject>();
 
     // 보이스 연결을 제어하기 위한 변수
     private VoiceConnection voiceConnection;
@@ -42,42 +46,28 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // 씬에 있는 VoiceConnection 컴포넌트를 찾습니다.
-        voiceConnection = FindObjectOfType<VoiceConnection>();
+        PhotonNetwork.IsMessageQueueRunning = true;
 
-        // 기존 플레이어 준비 신호 보내기
-        photonView.RPC("SignalPlayerIsReady", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+        voiceConnection = FindObjectOfType<VoiceConnection>();
 
+        photonView.RPC("SignalPlayerIsReady", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
 
     }
     #endregion
 
     #region 방 나가기 및 보이스 연결 해제 (새로운 핵심 로직)
-    /// <summary>
-    /// PauseMenu의 버튼 등 외부에서 호출할 함수입니다.
-    /// 방을 나가는 전체 과정을 시작합니다.
-    /// </summary>
     public void LeaveGameAndReturnToLobby()
     {
-        // PUN 룸을 나가는 요청을 보냅니다.
-        // 이후 작업은 OnLeftRoom 콜백 함수에서 자동으로 처리됩니다.
         PhotonNetwork.LeaveRoom();
     }
 
-    /// <summary>
-    /// PhotonNetwork.LeaveRoom()이 성공하면 자동으로 호출되는 콜백 함수입니다.
-    /// </summary>
     public override void OnLeftRoom()
     {
-        // 보이스 연결을 끊습니다.
-        // voiceConnection.Disconnect() 대신, 내부의 Client를 통해 직접 Disconnect를 호출합니다.
         if (voiceConnection != null && voiceConnection.Client != null && voiceConnection.Client.IsConnected)
         {
             voiceConnection.Client.Disconnect();
         }
 
-        // 로비 씬으로 이동합니다.
-        // "LobbyScene"은 실제 사용하는 로비 씬 이름으로 바꿔주세요.
         SceneManager.LoadScene("LobbyScene");
     }
     #endregion
@@ -111,4 +101,59 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
+    public void RegisterTimeObject(string id, TimeObject obj)
+    {
+        if (!futureTimeObjects.ContainsKey(id))
+        {
+           
+            futureTimeObjects.Add(id, obj);
+            Debug.Log($"GameManager: 미래 오브젝트 '{id}' (InstanceID: {obj.GetInstanceID()}) 등록 완료.");
+        }
+        else  
+        {
+
+            futureTimeObjects[id] = obj;
+            Debug.LogWarning($"GameManager: 미래 오브젝트 ID '{id}'가 이미 존재하여 업데이트합니다.");
+        }
+    }
+
+    public void SyncTimeObject(string id, Vector3 newLocalPosition)
+    {
+        Debug.Log($"GameManager.SyncTimeObject received request: ID '{id}', Pos: {newLocalPosition}. Checking PhotonView...");
+
+        PhotonView pv = GetComponent<PhotonView>();  
+
+        if (pv != null)  
+        {
+            Debug.Log("GameManager PhotonView found. Attempting to send RPC...");
+            pv.RPC("RPC_UpdateFutureObjectPosition", RpcTarget.All, id, newLocalPosition);
+        }
+        else
+        {
+            
+            Debug.LogError("GameManager is MISSING PhotonView component! Cannot send SyncTimeObject RPC.");
+        }
+    }
+
+    [PunRPC]
+    void RPC_UpdateFutureObjectPosition(string id, Vector3 newLocalPosition)
+    {
+
+        Debug.Log($"RPC_UpdateFutureObjectPosition EXECUTED on client: {PhotonNetwork.LocalPlayer.NickName}. ID: '{id}', Pos: {newLocalPosition}");
+
+        TimeObject futureObj;
+        if (futureTimeObjects.TryGetValue(id, out futureObj))
+        {
+            if (futureObj != null)  
+            {
+                // 로컬 위치 업데이트
+                futureObj.transform.localPosition = newLocalPosition;
+            }
+            else // 파괴된 오브젝트 목록에서 제거
+            {
+                futureTimeObjects.Remove(id);
+            }
+        }
+    }
+
 }

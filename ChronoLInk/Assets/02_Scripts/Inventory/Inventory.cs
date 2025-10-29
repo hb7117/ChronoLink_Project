@@ -89,30 +89,24 @@ public class Inventory : MonoBehaviour
 
     private void UpdateInventoryUI()
     {
-        Debug.Log($"UpdateInventoryUI called. heldItems.Count: {heldItems.Count}, inventorySlots is {(inventorySlots == null ? "NULL" : $"Assigned ({inventorySlots.Count} slots)")}");
 
         if (inventorySlots == null || inventorySlots.Count == 0) return;
 
         for (int i = 0; i < inventorySlots.Count; i++)
         {
-            Debug.Log($"Updating Slot {i}...");
             if (inventorySlots[i] == null)
             {
-                Debug.LogError($"InventorySlot [{i}] is NULL!");
                 continue;
             }
 
             if (i < heldItems.Count && heldItems[i] != null)
             {
-                Debug.Log($"  Calling DrawSlot for item: {heldItems[i].itemName}");
                 inventorySlots[i].DrawSlot(heldItems[i]);
             }
             else
             {
-                Debug.Log($"  Calling ClearSlot for slot {i}");
                 inventorySlots[i].ClearSlot();
             }
         }
-        Debug.Log("Inventory UI Update finished."); 
     }
 }

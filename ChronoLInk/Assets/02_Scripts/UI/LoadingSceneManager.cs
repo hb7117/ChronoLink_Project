@@ -1,53 +1,49 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System.Collections;
+using System.Collections.Generic;
 
-// PunRPC¸¦ »ç¿ëÇÏ±â À§ÇØ MonoBehaviourPunCallbacks¸¦ »ç¿ëÇÕ´Ï´Ù.
 public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Slider progressbar;
     [SerializeField] private Text loadingText;
 
-    // ·ÎµåÇÒ ¾ÀÀÇ ÀÌ¸§À» ´ãÀ» º¯¼ö
     private string whereScene;
     private AsyncOperation asyncLoad;
     private PhotonView photonView;
 
+    private List<int> loadedPlayers = new List<int>();
+
     void Awake()
     {
         photonView = GetComponent<PhotonView>();
+
+        if (photonView == null)
+        {
+            Debug.LogError("LoadingSceneManagerì— PhotonView ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤! RPCê°€ ì‘ë™í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+        }
     }
 
     void Start()
     {
-        // ·Îµù ÄÚ·çÆ¾À» ½ÃÀÛÇÏ±â Àü¿¡, ¸ÕÀú ¾î´À ¾ÀÀ¸·Î °¥Áö °áÁ¤ÇÕ´Ï´Ù.
         SetDestinationScene();
-
-        // °áÁ¤µÈ ¾ÀÀ¸·Î ·ÎµùÀ» ½ÃÀÛÇÕ´Ï´Ù.
         StartCoroutine(LoadingGameSceneAsync());
     }
 
-    /// <summary>
-    /// ÀÌÀü ¾ÀÀÇ ÀÌ¸§¿¡ µû¶ó ´ÙÀ½¿¡ ·ÎµåÇÒ ¾ÀÀ» °áÁ¤ÇÏ´Â ÇÔ¼ö
-    /// </summary>
     void SetDestinationScene()
     {
         string previousScene = SceneHistory.previousSceneName;
-        Debug.Log("ÀÌÀü ¾À: " + previousScene);
+        Debug.Log("ì´ì „ ì”¬: " + previousScene);
 
         switch (previousScene)
         {
             case "LobbyScene":
                 whereScene = "GameScene";
                 break;
-           //ase "GameScene":
-           //   whereScene = "GameScene1";
-           //   break;
-            // --- ¿©±â¿¡ »õ·Î¿î ¾À ÀüÈ¯ ±ÔÄ¢À» Ãß°¡ÇÏ¼¼¿ä ---
             default:
-                Debug.LogWarning("Á¤ÀÇµÇÁö ¾ÊÀº ÀÌÀü ¾ÀÀÔ´Ï´Ù. ±âº» ¾À(LobbyScene)À¸·Î ÀÌµ¿ÇÕ´Ï´Ù.");
+                Debug.LogWarning("ì •ì˜ë˜ì§€ ì•Šì€ ì´ì „ ì”¬ì…ë‹ˆë‹¤. ê¸°ë³¸ ì”¬(LobbyScene)ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.");
                 whereScene = "LobbyScene";
                 break;
         }
@@ -55,9 +51,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     IEnumerator LoadingGameSceneAsync()
     {
-        // "GameScene" ÀÌ¶ó°í °íÁ¤µÈ ºÎºĞÀ», À§¿¡¼­ °áÁ¤µÈ whereScene º¯¼ö·Î ±³Ã¼ÇÕ´Ï´Ù.
         asyncLoad = SceneManager.LoadSceneAsync(whereScene);
-
         asyncLoad.allowSceneActivation = false;
         loadingText.text = "Loading...";
 
@@ -68,39 +62,30 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
 
         progressbar.value = 1f;
-        loadingText.text = "¾Æ¹« Å°³ª ´­·¯ÁÖ¼¼¿ä";
 
-        while (!Input.anyKeyDown)
-        {
-            yield return null;
-        }
+        loadingText.text = "ë‹¤ë¥¸ í”Œë ˆì´ì–´ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ì¤‘...";
 
-        loadingText.text = "´Ù¸¥ ÇÃ·¹ÀÌ¾î¸¦ ±â´Ù¸®´Â Áß...";
-
-        photonView.RPC("PlayerReadyRPC", RpcTarget.MasterClient);
+        Debug.Log("ë¡œë”© ì™„ë£Œ. PlayerReadyRPCë¥¼ ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•©ë‹ˆë‹¤.");
+        photonView.RPC("PlayerReadyRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
-    // --- ¾Æ·¡ÀÇ Photon RPC °ü·Ã ÄÚµå´Â ±âÁ¸°ú µ¿ÀÏÇÕ´Ï´Ù ---
-
     [PunRPC]
-    void PlayerReadyRPC()
+    void PlayerReadyRPC(int actorNumber)
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        int readyCount = 0;
-        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("readyCount"))
+        if (!loadedPlayers.Contains(actorNumber))
         {
-            readyCount = (int)PhotonNetwork.CurrentRoom.CustomProperties["readyCount"];
+            loadedPlayers.Add(actorNumber);
+            Debug.Log($"í”Œë ˆì´ì–´ {actorNumber} ë¡œë”© ì™„ë£Œ. (í˜„ì¬ {loadedPlayers.Count} / {PhotonNetwork.CurrentRoom.PlayerCount})");
         }
-        readyCount++;
 
-        var newProps = new ExitGames.Client.Photon.Hashtable();
-        newProps["readyCount"] = readyCount;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(newProps);
-
-        if (readyCount == PhotonNetwork.CurrentRoom.PlayerCount)
+        if (loadedPlayers.Count == PhotonNetwork.CurrentRoom.PlayerCount)
         {
-            Debug.Log("¸ğµç ÇÃ·¹ÀÌ¾î ÁØºñ ¿Ï·á! ¾ÀÀ» µ¿½Ã¿¡ È°¼ºÈ­ÇÕ´Ï´Ù.");
+            Debug.Log("ëª¨ë“  í”Œë ˆì´ì–´ ë¡œë”© ì™„ë£Œ! ì”¬ì„ ë™ì‹œì— í™œì„±í™”í•©ë‹ˆë‹¤.");
+
+            loadedPlayers.Clear();
+
             photonView.RPC("ActivateSceneRPC", RpcTarget.All);
         }
     }
@@ -108,7 +93,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void ActivateSceneRPC()
     {
+        PhotonNetwork.IsMessageQueueRunning = false;
+
         asyncLoad.allowSceneActivation = true;
     }
 }
-
