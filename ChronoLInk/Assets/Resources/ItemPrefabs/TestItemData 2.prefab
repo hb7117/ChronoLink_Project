@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4684517167751598200}
   - component: {fileID: -8181577206764068180}
   m_Layer: 6
-  m_Name: TestItemData 1
+  m_Name: TestItemData 2
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,4 +184,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeObjectID: Box_1
-  isPastObject: 1
+  isPastObject: 0
