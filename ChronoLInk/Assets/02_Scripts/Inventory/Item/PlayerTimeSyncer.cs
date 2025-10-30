@@ -62,7 +62,7 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
             );
             currentCooldown = syncCooldown;
         }
-        else if (objectToSync == null) ;
-        else if (!objectToSync.isPastObject) ;
+        else if (objectToSync == null) { Debug.LogWarning("Closest collider does not have TimeObject component."); }
+        else if (!objectToSync.isPastObject) { Debug.LogWarning("Closest TimeObject is not a Past object."); }
     }
 }

@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 6709817076226544237}
   m_Layer: 0
   m_Name: Radius
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,6 +669,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
       propertyPath: m_Name
       value: OBJ_Player_male 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2efa83d67416f144d81a0c25e7bb8231, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
