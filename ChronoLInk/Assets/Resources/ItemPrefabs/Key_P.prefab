@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 9120923481270237168}
   - component: {fileID: 1305478996357192433}
   - component: {fileID: 4684517167751598200}
+  - component: {fileID: -8181577206764068180}
   m_Layer: 6
-  m_Name: TestItemData
+  m_Name: Key_P
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 130.20995, y: 69.14, z: 70.34514}
-  m_LocalScale: {x: 2.4142, y: 2.4142, z: 2.4142}
+  m_LocalScale: {x: 0.9205103, y: 0.9205103, z: 0.9205103}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e7570b42266cb4bb622f14e7d05671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 340816e9d1f17b24abb151fb42e85168, type: 2}
+  itemData: {fileID: 11400000, guid: 71e114bc69c6bbc46aecbb7254b5b6ce, type: 2}
 --- !u!54 &1305478996357192433
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -170,3 +171,17 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-8181577206764068180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674157772526699673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af86b93770088e54c8e95d9afb5e58f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeObjectID: Key_1
+  isPastObject: 1
