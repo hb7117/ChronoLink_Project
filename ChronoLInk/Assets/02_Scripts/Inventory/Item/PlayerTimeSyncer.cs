@@ -1,22 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
 [RequireComponent(typeof(PhotonView))]
-public class PlayerTimeSyncer : MonoBehaviourPunCallbacks // PunCallbacks »ó¼Ó
+public class PlayerTimeSyncer : MonoBehaviourPunCallbacks  
 {
     public float syncRadius = 3f;
     public KeyCode syncKey = KeyCode.R;
     public float syncCooldown = 3.0f;
-    public LayerMask timeObjectLayer; // Inspector¿¡¼­ "Item" ·¹ÀÌ¾î ¼³Á¤
+    public LayerMask timeObjectLayer;  
 
     private float currentCooldown = 0f;
 
-    // photonView´Â MonoBehaviourPunCallbacks¿¡¼­ Á¦°ø
 
     void Start()
     {
-        // ÀÌ ÄÄÆ÷³ÍÆ®´Â °ú°Å ÇÃ·¹ÀÌ¾î(³» Ä³¸¯ÅÍ)¸¸ È°¼ºÈ­
+        // ì´ ì»´í¬ë„ŒíŠ¸ëŠ” ê³¼ê±° í”Œë ˆì´ì–´(ë‚´ ìºë¦­í„°)ë§Œ í™œì„±í™”
         if (!photonView.IsMine)
         {
             enabled = false;
@@ -36,14 +35,13 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks // PunCallbacks »ó¼Ó
         {
 
             PerformTimeAlteration();
-            Debug.Log("RÅ° ´­¸²");
+            Debug.Log("Rí‚¤ ëˆŒë¦¼");
         }
     }
 
     private void PerformTimeAlteration()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, syncRadius, timeObjectLayer);
-        // ¡Ú¡Ú¡Ú ·Î±× 1: °¨ÁöµÈ Äİ¶óÀÌ´õ °³¼ö È®ÀÎ ¡Ú¡Ú¡Ú
         Debug.Log($"PerformTimeAlteration: Found {hitColliders.Length} colliders in radius on correct layer.");
 
         if (hitColliders.Length == 0) return;
@@ -58,15 +56,13 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks // PunCallbacks »ó¼Ó
 
         if (objectToSync != null && objectToSync.isPastObject)
         {
-            // ¡Ú¡Ú¡Ú ·Î±× 2: GameManager ÇÔ¼ö È£Ãâ Á÷Àü È®ÀÎ ¡Ú¡Ú¡Ú
-            Debug.Log($"Attempting to call GameManager.SyncTimeObject for ID '{objectToSync.timeObjectID}' with localPos {objectToSync.transform.localPosition}");
             GameManager.Instance.SyncTimeObject(
                 objectToSync.timeObjectID,
                 objectToSync.transform.localPosition
             );
             currentCooldown = syncCooldown;
         }
-        else if (objectToSync == null) { Debug.LogWarning("Closest collider does not have TimeObject component."); }
-        else if (!objectToSync.isPastObject) { Debug.LogWarning("Closest TimeObject is not a Past object."); }
+        else if (objectToSync == null) ;
+        else if (!objectToSync.isPastObject) ;
     }
 }

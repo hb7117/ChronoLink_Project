@@ -2,45 +2,32 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Photon.Pun;
+using System.Linq; // 💡 [추가]
 
 public class Inventory : MonoBehaviour
 {
     [Header("UI 설정")]
-    public GameObject inventoryPanel;         
-    public List<Slot> inventorySlots;        
+    public GameObject inventoryPanel;
+    public List<Slot> inventorySlots;
 
     [Header("아이템 버리기")]
-    public Transform dropPoint;               
+    public Transform dropPoint;
 
     private List<ItemData> heldItems = new List<ItemData>();
     private PhotonView photonView;
 
-
     void Awake()
     {
         photonView = GetComponent<PhotonView>();
-        Debug.Log($"Inventory Awake: photonView is {(photonView == null ? "NULL" : "Assigned")}. IsMine: {photonView?.IsMine}"); 
+        Debug.Log($"Inventory Awake: photonView is {(photonView == null ? "NULL" : "Assigned")}. IsMine: {photonView?.IsMine}");
 
         if (inventoryPanel == null)
         {
             inventoryPanel = GameObject.FindWithTag("InventoryPanel");
-            if (inventoryPanel == null) ;
         }
         if (inventoryPanel != null) inventoryPanel.SetActive(false);
 
-       
-        
         UpdateInventoryUI();
-    }
-
-    void Start()
-    {
-        
-        if (inventoryPanel == null)
-        {      
-            inventoryPanel = GameObject.Find("InventoryPanel");
-        }
-        inventoryPanel.SetActive(false); 
     }
 
     void Update()
@@ -54,7 +41,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-   
     public void AddItem(ItemData itemData)
     {
         if (heldItems.Count >= inventorySlots.Count)
@@ -66,39 +52,27 @@ public class Inventory : MonoBehaviour
         UpdateInventoryUI();
     }
 
-
     public void DropItem(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= heldItems.Count) return;
-
         ItemData itemToDrop = heldItems[slotIndex];
-
         if (itemToDrop.itemPrefab == null)
         {
             Debug.LogError(itemToDrop.itemName + " 프리팹이 비어있습니다!");
             return;
         }
-
         string prefabName = "ItemPrefabs/" + itemToDrop.itemPrefab.name;
-
         PhotonNetwork.Instantiate(prefabName, dropPoint.position, dropPoint.rotation);
-
         heldItems.RemoveAt(slotIndex);
         UpdateInventoryUI();
     }
 
     private void UpdateInventoryUI()
     {
-
         if (inventorySlots == null || inventorySlots.Count == 0) return;
-
         for (int i = 0; i < inventorySlots.Count; i++)
         {
-            if (inventorySlots[i] == null)
-            {
-                continue;
-            }
-
+            if (inventorySlots[i] == null) continue;
             if (i < heldItems.Count && heldItems[i] != null)
             {
                 inventorySlots[i].DrawSlot(heldItems[i]);
@@ -107,6 +81,30 @@ public class Inventory : MonoBehaviour
             {
                 inventorySlots[i].ClearSlot();
             }
+        }
+    }
+
+    // --- [Door.cs가 호출할 함수들] ---
+
+    // 💡 참고: ItemData에 itemName 말고 itemID라는 별도 변수가 있다면 
+    // item.itemID == itemID 로 바꿔주세요.
+    public bool HasItem(string itemID)
+    {
+        return heldItems.Any(item => item.itemName == itemID);
+    }
+
+    public void RemoveItem(string itemID)
+    {
+        ItemData itemToRemove = heldItems.FirstOrDefault(item => item.itemName == itemID);
+        if (itemToRemove != null)
+        {
+            heldItems.Remove(itemToRemove);
+            UpdateInventoryUI();
+            Debug.Log("아이템 사용: " + itemID + "가 인벤토리에서 제거되었습니다.");
+        }
+        else
+        {
+            Debug.LogWarning(itemID + "를 제거하려 했으나 인벤토리에 없습니다.");
         }
     }
 }

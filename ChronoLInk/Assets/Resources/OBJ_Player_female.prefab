@@ -1131,7 +1131,12 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 64
-  interactKey: 101
+  pickupKey: 101
+  doorInteractDistance: 6
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  doorInteractKey: 101
 --- !u!114 &-3451846974758414937
 MonoBehaviour:
   m_ObjectHideFlags: 0
