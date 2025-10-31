@@ -4,7 +4,7 @@ using UnityEngine.UI; // UI 사용을 위해 필수
 public class LockPuzzle : MonoBehaviour
 {
     // 1. 상호작용 오브젝트에 붙어있는 SimplePanelController
-    private SimplePanelController panelController;
+    public SimplePanelController panelController;
 
     // 2. UI 요소들
     public Text[] numberTexts;   // 3개의 숫자 텍스트

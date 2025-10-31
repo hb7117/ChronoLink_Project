@@ -1130,8 +1130,8 @@ MonoBehaviour:
   doorInteractDistance: 3
   doorLayer:
     serializedVersion: 2
-    m_Bits: 0
-  doorInteractKey: 102
+    m_Bits: 128
+  doorInteractKey: 101
 --- !u!1001 &2224556071402131105
 PrefabInstance:
   m_ObjectHideFlags: 0
