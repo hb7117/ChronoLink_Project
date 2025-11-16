@@ -15,7 +15,6 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // 이 컴포넌트는 과거 플레이어(내 캐릭터)만 활성화
         if (!photonView.IsMine)
         {
             enabled = false;
@@ -42,7 +41,6 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
     private void PerformTimeAlteration()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, syncRadius, timeObjectLayer);
-        Debug.Log($"PerformTimeAlteration: Found {hitColliders.Length} colliders in radius on correct layer.");
 
         if (hitColliders.Length == 0) return;
 
@@ -62,7 +60,7 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
             );
             currentCooldown = syncCooldown;
         }
-        else if (objectToSync == null) { Debug.LogWarning("Closest collider does not have TimeObject component."); }
-        else if (!objectToSync.isPastObject) { Debug.LogWarning("Closest TimeObject is not a Past object."); }
+        else if (objectToSync == null)  ;
+        else if (!objectToSync.isPastObject)  ; 
     }
 }
