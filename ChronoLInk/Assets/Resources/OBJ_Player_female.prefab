@@ -1159,6 +1159,8 @@ MonoBehaviour:
   timeObjectLayer:
     serializedVersion: 2
     m_Bits: 64
+  glitchSound: {fileID: 0}
+  effectDuration: 0.3
 --- !u!1001 &2565441536112172658
 PrefabInstance:
   m_ObjectHideFlags: 0

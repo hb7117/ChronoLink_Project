@@ -35,15 +35,16 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     void SetDestinationScene()
     {
         string previousScene = SceneHistory.previousSceneName;
-        Debug.Log("이전 씬: " + previousScene);
-
+        // ...
         switch (previousScene)
         {
             case "LobbyScene":
                 whereScene = "GameScene";
                 break;
+            case "GameScene":
+                whereScene = "GameScene2"; // "NextStageScene"을 실제 다음 씬 이름으로 변경
+                break;
             default:
-                Debug.LogWarning("정의되지 않은 이전 씬입니다. 기본 씬(LobbyScene)으로 이동합니다.");
                 whereScene = "LobbyScene";
                 break;
         }
