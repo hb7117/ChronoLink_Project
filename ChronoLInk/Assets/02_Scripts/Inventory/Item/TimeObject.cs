@@ -1,10 +1,9 @@
 using UnityEngine;
 using Photon.Pun;
-using System.Collections; // 코루틴 사용
-
+using System.Collections;  
 public class TimeObject : MonoBehaviourPun
 {
-    public string timeObjectID = "Unique_ID_01";
+    public string timeObjectID ;
     public bool isPastObject = true;
 
      

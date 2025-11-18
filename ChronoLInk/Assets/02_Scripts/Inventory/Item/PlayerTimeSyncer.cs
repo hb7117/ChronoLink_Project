@@ -29,7 +29,7 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
             audioSource.playOnAwake = false;
         }
 
-        // 씬에 있는 Glitch UI 찾기
+         
         GameObject glitchUIObj = GameObject.FindGameObjectWithTag("GlitchEffectUI");
         if (glitchUIObj != null)
         {
@@ -38,10 +38,7 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
             {
                 glitchEffectImage.color = Color.clear;
             }
-            else
-            {
-                Debug.LogWarning("GlitchEffectUI 태그 오브젝트에 Image 컴포넌트가 없습니다.");
-            }
+             
         }
         else
         {
