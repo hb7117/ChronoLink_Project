@@ -29,7 +29,7 @@ public class VoiceController : MonoBehaviour
         if (VoiceOn != null) VoiceOn.SetActive(false);
         if (VoiceOff != null) VoiceOff.SetActive(true);
 
-        if (recorder != null)
+        if (recorder != null) 
         {
             recorder.TransmitEnabled = false;
         }
