@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6938180877686741096
+--- !u!114 &-4737612892898386199
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 09 - Default
+  m_Name: 07 - Default 1
   m_Shader: {fileID: -6465566751694194690, guid: 44245ab89240f51459a5077d7145c452, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -125,8 +125,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BASE_COLOR: {r: 0.4433962, g: 0.28109646, b: 0.24052154, a: 1}
-    - _BaseColor: {r: 0.95193213, g: 0.56789654, b: 0.37750837, a: 1}
+    - _BASE_COLOR: {r: 0.49056602, g: 0.27482286, b: 0.18743324, a: 1}
+    - _BaseColor: {r: 0.56062776, g: 0.38345805, b: 0.2690152, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
