@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Linq; 
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
+using System;
 
 public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
 {
@@ -12,6 +13,7 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
     public const string PLAYER_CHARACTER_KEY = "character";
 
     [Header("UI Panels")]
+    [SerializeField] private GameObject logoPanel;
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject createRoomPanel;
@@ -50,7 +52,8 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         // UI 초기 상태 설정
-        loginPanel.SetActive(true);
+        logoPanel.SetActive(true);
+        loginPanel.SetActive(false);
         lobbyPanel.SetActive(false);
         createRoomPanel.SetActive(false);
         roomPanel.SetActive(false);
@@ -90,8 +93,25 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
     private void Login()
     {
         loginButton.interactable = false;
+
         PhotonNetwork.NickName = nicknameInputField.text;
-        PhotonNetwork.ConnectUsingSettings();
+
+        if (PhotonNetwork.IsConnected)
+        {
+
+            if (PhotonNetwork.InLobby)
+            {
+                OnJoinedLobby();
+            }
+            else
+            {
+                PhotonNetwork.JoinLobby();
+            }
+        }
+        else
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     private void CreateRoom()
@@ -113,33 +133,57 @@ public class ConnectAndLobbyManager : MonoBehaviourPunCallbacks
         props[PLAYER_CHARACTER_KEY] = character;
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-        Debug.Log($"역할 선택 완료! 내가 선택한 역할: {character}");
 
     }
 
-    // [5단계 핵심] 게임 시작 함수
     private void StartGame()
     {
-        // 마스터 클라이언트만 게임을 시작할 수 있음
         if (PhotonNetwork.IsMasterClient)
         {
-            // 게임 시작 조건을 다시 한번 확인
             if (CheckAllPlayersReady())
             {
-                Debug.Log("모든 플레이어 준비 완료, 게임을 시작합니다!");
-                PhotonNetwork.LoadLevel("LoadingScene"); // "GameScene"은 실제 게임 씬의 이름으로 변경해야 함
+                PhotonNetwork.LoadLevel("LoadingScene");  
             }
-            else
-            {
-                Debug.LogWarning("모든 플레이어가 역할을 선택하지 않았습니다.");
-            }
+             
         }
     }
     #endregion
+    #region UI
+    public void OnClickLogo()
+    {
+        logoPanel.SetActive(false);
+        loginPanel.SetActive(true);
+    }
+    public void OnClickOption()
+    {
+       
+    }
+    public void AllOffUI()
+    {
+         
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
 
+        logoPanel.SetActive(true);
+        loginPanel.SetActive(false);
+        lobbyPanel.SetActive(false);
+        createRoomPanel.SetActive(false);
+        roomPanel.SetActive(false);
+    }
+
+    // public
+
+
+    #endregion
     #region Photon Callbacks
 
     // 아무것도 건들지 말아줘. 오류나면 어디서부터 고쳐야 할지 감이 안와
+
+
+
+
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
