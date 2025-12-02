@@ -9,9 +9,9 @@ using Photon.Pun; // Photon 기능 사용
 public class DialogSystem : MonoBehaviour
 {
     [Header("패널 설정 (3개)")]
-    public GameObject pastPanel;    // 과거 캐릭터 전용 화면
-    public GameObject futurePanel;  // 미래 캐릭터 전용 화면
-    public GameObject globalPanel;  // 모두가 같이 보는 화면
+    public GameObject pastPanel;     
+    public GameObject futurePanel;   
+    public GameObject globalPanel;   
 
     public Image BackGround;
 
@@ -46,23 +46,20 @@ public class DialogSystem : MonoBehaviour
         if (globalPanel != null) globalPanel.SetActive(false);
     }
 
-    // 🔥 [핵심 수정] 역할(Role)에 따라 패널을 켭니다.
     private void OpenCorrectPanel(bool isGlobal)
     {
-        CloseAllPanels(); // 일단 다 끄고 시작
+        CloseAllPanels();  
 
         if (isGlobal)
         {
-            // 1. 글로벌 대화라면 무조건 글로벌 패널
             if (globalPanel != null) globalPanel.SetActive(true);
         }
         else
         {
-            // 2. 개인 대화라면 "내 캐릭터의 역할"을 확인
             object characterValue;
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("character", out characterValue))
             {
-                string myRole = (string)characterValue; // "Past" 또는 "Future"
+                string myRole = (string)characterValue;  
 
                 if (myRole == "Past")
                 {
@@ -75,16 +72,12 @@ public class DialogSystem : MonoBehaviour
             }
             else
             {
-                // 만약 역할을 못 찾았다면? (에러 방지용으로 호스트 여부로 임시 처리하거나 로그 출력)
-                Debug.LogWarning("캐릭터 역할을 찾을 수 없습니다. 기본 패널을 엽니다.");
                 if (pastPanel != null) pastPanel.SetActive(true);
             }
         }
     }
 
-    // ... (LoadDialogsFromDB, SetActiveObjects 등 기존 코드는 그대로 유지) ...
-    // ... (중략) ...
-
+ 
     private void LoadDialogsFromDB()
     {
         Array.Clear(dialogs, 0, dialogs.Length);
@@ -132,12 +125,12 @@ public class DialogSystem : MonoBehaviour
     private void EndDialogSystem()
     {
         SetAllClose();
-        CloseAllPanels(); // 대화 끝나면 패널 닫기
+        CloseAllPanels();  
     }
 
     public void StartDialog(int startIndex, int endIndex, bool isGlobal)
     {
-        // 역할에 맞는 패널 켜기
+         
         OpenCorrectPanel(isGlobal);
 
         SetAllClose();

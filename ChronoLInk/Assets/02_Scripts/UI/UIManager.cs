@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.Q))
+        if (isInRange && Input.GetKeyDown(KeyCode.F))
         {
             // 3. E키가 눌렸는지 확인
             TogglePanel();

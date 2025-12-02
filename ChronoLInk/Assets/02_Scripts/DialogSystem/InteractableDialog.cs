@@ -6,9 +6,11 @@ public class InteractableDialog : MonoBehaviourPun
     [Header("Dialog Settings")]
     public int startDialogIndex;
     public int endDialogIndex;
-    public bool isGlobalDialog = false; // 체크하면 모두가 GlobalPanel, 끄면 각자 역할에 맞는 Panel
+    public bool isGlobalDialog = false;
 
     private bool isPlayerInRange = false;
+    private bool hasTriggered = false; // [추가] 이미 대화가 실행되었는지 체크하는 변수
+
     private DialogSystem dialogSystem;
 
     private void Start()
@@ -18,19 +20,20 @@ public class InteractableDialog : MonoBehaviourPun
 
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
+        // [수정] hasTriggered가 false일 때만(아직 대화 안 했을 때만) 입력 받음
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F) && !hasTriggered)
         {
             if (dialogSystem != null)
             {
                 if (isGlobalDialog)
                 {
-                    // 1. 글로벌 대화: RPC로 모두에게 알림 -> 모두 GlobalPanel이 열림
+                    // 글로벌이면 RPC를 쏴서 "모든 사람"의 hasTriggered를 true로 만듦
                     photonView.RPC("RPC_StartDialog", RpcTarget.All, startDialogIndex, endDialogIndex, true);
                 }
                 else
                 {
-                    // 2. 개인 대화: 나만 실행 -> 내 역할(Past/Future)에 따라 PastPanel/FuturePanel 열림
-                    // RPC를 쏘지 않고 직접 호출합니다.
+                    // 로컬이면 "나"만 hasTriggered를 true로 바꾸고 실행
+                    hasTriggered = true;
                     dialogSystem.StartDialog(startDialogIndex, endDialogIndex, false);
                 }
             }
@@ -40,7 +43,6 @@ public class InteractableDialog : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         PhotonView otherPv = other.GetComponent<PhotonView>();
-        // 태그와 IsMine 확인
         if (other.CompareTag("Player") && otherPv != null && otherPv.IsMine)
         {
             isPlayerInRange = true;
@@ -56,10 +58,13 @@ public class InteractableDialog : MonoBehaviourPun
         }
     }
 
-    // 글로벌일 때만 호출되는 RPC
     [PunRPC]
     public void RPC_StartDialog(int startIndex, int endIndex, bool isGlobal)
     {
+        // [추가] RPC가 실행되었다는 건 누군가 대화를 시작했다는 뜻이므로
+        // 모든 클라이언트에서 이 변수를 true로 바꿔서 중복 실행을 막음
+        hasTriggered = true;
+
         if (dialogSystem != null)
         {
             dialogSystem.StartDialog(startIndex, endIndex, isGlobal);
