@@ -39,7 +39,10 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         switch (previousScene)
         {
             case "LobbyScene":
-                whereScene = "GameScene";
+                whereScene = "TScene";
+                break;
+            case "TScene":
+                whereScene = "GameScene"; // "NextStageScene"을 실제 다음 씬 이름으로 변경
                 break;
             case "GameScene":
                 whereScene = "GameScene2"; // "NextStageScene"을 실제 다음 씬 이름으로 변경

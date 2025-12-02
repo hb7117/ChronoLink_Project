@@ -53,6 +53,7 @@ MonoBehaviour:
   - RPC_PlayGlitchEffect
   - LoadNextSceneRPC
   - PlayerReachedExit
+  - RPC_StartDialog
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
