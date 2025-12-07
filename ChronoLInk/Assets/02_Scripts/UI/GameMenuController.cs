@@ -62,10 +62,7 @@ public class GameMenuController : MonoBehaviourPunCallbacks
             menuPanel.SetActive(false);
             optionPanel.SetActive(true);
         }
-        else
-        {
-            Debug.Log("Option Panel is not assigned.");
-        }
+       
     }
 
     public void OnClickBackFromOption()
