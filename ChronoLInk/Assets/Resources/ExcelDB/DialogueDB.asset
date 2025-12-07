@@ -17,10 +17,10 @@ MonoBehaviour:
     list:
     - index: 0
       speakerUIindex: 2
-      name: 
+      name: ???
       dialogue: "(\uC9C0\uC9C0\uC9C1\uAC70\uB9AC\uB294 \uC18C\uB9AC\uC640 \uD568\uAED8
         \uBB34\uC804\uAE30\uC5D0\uC11C \uBAA9\uC18C\uB9AC\uAC00 \uB4E4\uB9B0\uB2E4.)"
-      characterPath: None
+      characterPath: Character/00026
       BackGroundPath: None
       tweenType: 0
       nextindex: 1
@@ -28,9 +28,9 @@ MonoBehaviour:
       nextScene: None
     - index: 1
       speakerUIindex: 2
-      name: 
+      name: ???
       dialogue: "\u2026\uB4E4\uB9AC\uC138\uC694?....\uAC70\uAE30 \uB204\uAD6C \uC5C6\uC5B4\uC694?"
-      characterPath: None
+      characterPath: Character/00026
       BackGroundPath: None
       tweenType: 0
       nextindex: 2

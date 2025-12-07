@@ -9,7 +9,7 @@ public class InteractableDialog : MonoBehaviourPun
     public bool isGlobalDialog = false;
 
     private bool isPlayerInRange = false;
-    private bool hasTriggered = false; // [추가] 이미 대화가 실행되었는지 체크하는 변수
+    private bool hasTriggered = false; 
 
     private DialogSystem dialogSystem;
 
