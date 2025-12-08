@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;  
 
 public class UIManager : MonoBehaviour
 {
@@ -10,17 +11,17 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-         
-        
-      targetPanel.SetActive(false);
-        
+        if (targetPanel != null)
+        {
+            targetPanel.SetActive(false);
+        }
     }
 
     void Update()
     {
+         
         if (isInRange && Input.GetKeyDown(KeyCode.F))
         {
-            // 3. E키가 눌렸는지 확인
             TogglePanel();
         }
     }
@@ -29,21 +30,29 @@ public class UIManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // 2. 플레이어가 범위에 들어왔는지 확인
-            isInRange = true;
+            PhotonView pv = other.GetComponent<PhotonView>();
+
+            if (pv != null && pv.IsMine)
+            {
+                isInRange = true;
+            }
         }
-       
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isInRange = false;
+            PhotonView pv = other.GetComponent<PhotonView>();
 
-            if (targetPanel != null && targetPanel.activeSelf)
+            if (pv != null && pv.IsMine)
             {
-                targetPanel.SetActive(false);
+                isInRange = false;
+
+                if (targetPanel != null && targetPanel.activeSelf)
+                {
+                    targetPanel.SetActive(false);
+                }
             }
         }
     }
@@ -56,5 +65,4 @@ public class UIManager : MonoBehaviour
             targetPanel.SetActive(!isActive);
         }
     }
-
 }
