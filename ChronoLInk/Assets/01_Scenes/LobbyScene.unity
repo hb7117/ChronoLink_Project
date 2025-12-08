@@ -1017,14 +1017,14 @@ RectTransform:
   m_GameObject: {fileID: 323963809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5999999, y: 0.29999995, z: 1}
+  m_LocalScale: {x: 3, y: 1.4999998, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 725402446}
+  m_Father: {fileID: 699216472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: -30}
+  m_AnchoredPosition: {x: 0.00063069654, y: 824.99994}
   m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &323963811
@@ -1929,7 +1929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &699216472
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1942,6 +1942,7 @@ RectTransform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 323963810}
   - {fileID: 513445903}
   - {fileID: 2026502444}
   m_Father: {fileID: 725402446}
@@ -2204,7 +2205,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 323963810}
   - {fileID: 699216472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4981,7 +4981,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: "\uC774\uB984\uC744 \uC785\uB825\uD558\uC138\uC694.."
 --- !u!222 &2066248447
 CanvasRenderer:
   m_ObjectHideFlags: 0

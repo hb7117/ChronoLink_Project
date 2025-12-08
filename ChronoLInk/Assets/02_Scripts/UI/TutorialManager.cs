@@ -6,12 +6,24 @@ public class TutorialManager : MonoBehaviour
 {
     public GameObject tutorialCanvas;
     public GameObject backButton;
-
     public List<GameObject> tutorialPages;
 
     private int currentIndex = 0;
 
     void Start()
+    {
+        OpenTutorial();
+    }
+
+    public void OnClickOpenTutorial()
+    {
+        if (!tutorialCanvas.activeSelf)
+        {
+            OpenTutorial();
+        }
+    }
+
+    private void OpenTutorial()
     {
         currentIndex = 0;
         UpdateUI();
