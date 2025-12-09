@@ -6,6 +6,7 @@ public class InteractableDialog : MonoBehaviourPun
     public int startDialogIndex;
     public int endDialogIndex;
     public bool isGlobalDialog = false;
+    public bool playOnStart = false;
 
     private bool isPlayerInRange = false;
     private bool hasTriggered = false;
@@ -15,6 +16,14 @@ public class InteractableDialog : MonoBehaviourPun
     private void Start()
     {
         dialogSystem = FindObjectOfType<DialogSystem>();
+
+        if (playOnStart)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("RPC_StartDialog", RpcTarget.All, startDialogIndex, endDialogIndex, true);
+            }
+        }
     }
 
     private void Update()

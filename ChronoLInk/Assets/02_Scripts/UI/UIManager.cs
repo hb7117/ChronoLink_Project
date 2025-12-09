@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
          
-        if (isInRange && Input.GetKeyDown(KeyCode.F))
+        if (isInRange && Input.GetKeyDown(KeyCode.Q))
         {
             TogglePanel();
         }
