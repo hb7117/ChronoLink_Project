@@ -397,7 +397,8 @@ MonoBehaviour:
     - index: 35
       speakerUIindex: 1
       name: "\uD604"
-      dialogue: "\uC774\uAC74 \uC544\uAE4C \uD654\uBD84\uC5D0\uC11C \uBD24\uC5C8\uB358..\uC885\uC774\uB791\u2026"
+      dialogue: "\uB0B4\uC6A9\uC740 \"\uB530\uB4EF\uD55C 6\uC6D4..\" \uC774\uAC74
+        \uC544\uAE4C \uD654\uBD84\uC5D0\uC11C \uBD24\uC5C8\uB358..\uC885\uC774\uB791\u2026"
       characterPath: Character/00020
       BackGroundPath: None
       tweenType: 0
@@ -408,7 +409,8 @@ MonoBehaviour:
       speakerUIindex: 1
       name: "\uD604"
       dialogue: "\"\uC120\uBC18\uC758 \uBE44\uC6CC\uC838\uC788\uB294 \uCE78\uC758
-        \uBC88\uD638\uB294 \uC138\uBC88\uC9F8 \uC22B\uC790\uC640 \uB611\uAC19\uB2E4.\" "
+        \uBC88\uD638\uB294 \uC138\uBC88\uC9F8 \uC22B\uC790\uC640 \uB611\uAC19\uB2E4.\"
+        \uB77C\uACE0 \uC801\uD600\uC788\uB2E4."
       characterPath: Character/00020
       BackGroundPath: None
       tweenType: 0
