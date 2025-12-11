@@ -40,10 +40,7 @@ public class PlayerTimeSyncer : MonoBehaviourPunCallbacks
             }
              
         }
-        else
-        {
-            Debug.LogWarning("GlitchEffectUI 태그를 가진 UI 오브젝트를 씬에서 찾을 수 없습니다.");
-        }
+     
 
          
         if (!photonView.IsMine)
