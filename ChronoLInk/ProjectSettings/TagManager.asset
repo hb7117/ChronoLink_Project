@@ -7,6 +7,9 @@ TagManager:
   - Item
   - InteractUI
   - GlitchEffectUI
+  - NoArm
+  - NoLeg
+  - NoHead
   layers:
   - Default
   - TransparentFX

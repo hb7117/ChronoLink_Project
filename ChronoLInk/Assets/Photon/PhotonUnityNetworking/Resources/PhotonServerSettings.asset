@@ -54,6 +54,7 @@ MonoBehaviour:
   - LoadNextSceneRPC
   - PlayerReachedExit
   - RPC_StartDialog
+  - RPC_ActivateReward
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

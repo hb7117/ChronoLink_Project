@@ -65,6 +65,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             case "GameScene":
                 whereScene = "GameScene2";
                 break;
+            case "GameScene2":
+                whereScene = "GameScene3";
+                break;
+            case "GameScene3":
+                whereScene = "EndingScene";
+                break;
             default:
                 whereScene = "LobbyScene";
                 break;
